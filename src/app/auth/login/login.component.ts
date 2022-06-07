@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 import { Store } from "@ngrx/store";
@@ -7,6 +7,7 @@ import { AuthService } from "../auth.service";
 import { Router } from "@angular/router";
 import { AppState } from "../../reducers";
 import { LoginAction } from "../auth.actions";
+import { AuthState } from "../auth.reducer";
 
 @Component({
   selector: "login",
@@ -20,7 +21,7 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private auth: AuthService,
     private router: Router,
-    private store: Store<AppState>
+    private store: Store<AuthState>
   ) {
     this.form = fb.group({
       email: ["test@angular-university.io", [Validators.required]],
@@ -37,7 +38,7 @@ export class LoginComponent implements OnInit {
         this.router.navigateByUrl("/courses");
       },
       (err) => {
-        alert('Login Failed');
+        alert("Login Failed");
       }
     );
   }
